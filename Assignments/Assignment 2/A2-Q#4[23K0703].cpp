@@ -115,8 +115,8 @@ public:
     {
         if (numPostsPosted < 5)
         {
-            feed[numPostsPosted] = &post;
             numPostsPosted++;
+            feed[numPostsPosted - 1] = &post;
         }
     }
 
@@ -134,6 +134,7 @@ class BusinessUser : public User
     int numPostsPromoted;
     Post *promotedPosts[10];
 
+public:
     BusinessUser(
         string username,
         string password,
@@ -172,4 +173,21 @@ class BusinessUser : public User
 
 int main()
 {
+    // Solution Header
+    cout << "Name: Sarim Ahmed" << endl;
+    cout << "ID: 23K0703" << endl
+         << endl;
+
+    Post post1("12345", "I love getting killed.");
+    Post post2("12344", "After life is a high.");
+    Post post3("12342", "I love killing people.");
+
+    RegularUser user1("uwuMurderer", "12398ru23", "murder@hehe.com");
+    RegularUser user2("waitingToBeMurdered", "3r4t34t43t", "murdered@haha.com");
+
+    user2.addToFeed(post1);
+    user2.addToFeed(post2);
+
+    user2.viewFeed();
+    user2.viewFeed();
 }

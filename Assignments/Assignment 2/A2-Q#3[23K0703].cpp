@@ -191,6 +191,11 @@ public:
 
 int main()
 {
+
+    // Solution Header
+    cout << "Name: Sarim Ahmed" << endl;
+    cout << "ID: 23K0703" << endl
+         << endl;
     DarazLoyaltyProgram loyaltyProgram;
 
     DarazCustomerData customerData("Sarim", "Ahmed", "A-214", "Karachi", "Sindh", "101", "03121234567", 1234, 220);

@@ -145,6 +145,11 @@ void Character::playGame(Enemy *enemy)
 
 int main()
 {
+    // Solution Header
+    cout << "Name: Sarim Ahmed" << endl;
+    cout << "ID: 23K0703" << endl
+         << endl;
+
     Enemy enemy(12345, "Baba Bandook", 10);
     Character character(12342, "Burqa Avenger");
 
