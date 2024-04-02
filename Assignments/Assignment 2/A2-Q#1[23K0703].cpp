@@ -178,9 +178,48 @@ int main()
     cout << "ID: 23K0703" << endl
          << endl;
 
-    FirewallTool firewallTool("Low", 13.0, 5);
+    string securityLevels[3] = {"High", "Medium", "Low"};
+    int securityLevelChoice;
 
-    bool allowed = firewallTool.performScan(33, "HTTPS");
+    cout << "Choose your security level" << endl;
+    for (int i = 0; i < 3; i++)
+    {
+        cout << "[" << i << "] " << securityLevels[i] << endl;
+    }
+    cout << ": ";
+    cin >> securityLevelChoice;
+
+    FirewallTool firewallTool(securityLevels[securityLevelChoice], 13.0, 5);
+
+    string protocols[8] = {
+        "HTTPS",
+        "FTP",
+        "UDP",
+        "ICMP",
+        "SSH",
+        "SNMP",
+        "TCP",
+        "DNS",
+    };
+
+    string trafficProtocol;
+    int trafficPort, protocolChoice;
+
+    // Show all protocol options
+    cout << "Protocols;" << endl;
+    for (int i = 0; i < 8; i++)
+    {
+        cout << "[" << i << "] " << protocols[i] << endl;
+    }
+
+    cout << "Enter your protocol selection [0-7]: ";
+    cin >> protocolChoice;
+
+    cout << endl
+         << "Enter your port number: ";
+    cin >> trafficPort;
+
+    bool allowed = firewallTool.performScan(trafficPort, protocols[protocolChoice]);
 
     if (allowed)
     {
