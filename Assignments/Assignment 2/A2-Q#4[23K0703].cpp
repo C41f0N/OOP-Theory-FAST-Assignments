@@ -1,10 +1,12 @@
 #include <iostream>
+#include <functional>
 
 using namespace std;
 
 class User
 {
-    string username, password, email;
+    string username, email;
+    size_t password;
 
 public:
     User(string username, string password, string email)
@@ -20,9 +22,9 @@ public:
         return this->email == email && this->password == hash(password);
     }
 
-    string hash(string password)
+    size_t hash(string password)
     {
-        return password;
+        return std::hash<string>{}(password);
     }
 };
 
@@ -35,6 +37,8 @@ public:
     Post(string postId, string content) : postId(postId), content(content)
     {
         numComments = 0;
+        for (int i = 0; i < 10; i++)
+            comments[i] = "";
         likes = 0;
         views = 0;
     }
@@ -111,12 +115,12 @@ public:
         numPostsPosted = 0;
     }
 
-    void addToFeed(Post post)
+    void addToFeed(Post *post)
     {
         if (numPostsPosted < 5)
         {
             numPostsPosted++;
-            feed[numPostsPosted - 1] = &post;
+            feed[numPostsPosted - 1] = post;
         }
     }
 
@@ -147,7 +151,7 @@ public:
         numPostsPromoted = 0;
     }
 
-    void promotePost(Post post)
+    void promotePost(Post *post)
     {
         if (numPostsPromoted < 10)
         {
@@ -161,12 +165,20 @@ public:
 
             if (verifyUser(inputEmail, inputPassword))
             {
-                post.promoteLikes();
-                post.promoteViews();
+                post->promoteLikes();
+                post->promoteViews();
 
-                promotedPosts[numPostsPromoted] = &post;
+                promotedPosts[numPostsPromoted] = post;
                 numPostsPromoted++;
             }
+        }
+    }
+
+    void viewPromotedPosts()
+    {
+        for (int i = 0; i < numPostsPromoted; i++)
+        {
+            promotedPosts[i]->display();
         }
     }
 };
@@ -178,16 +190,36 @@ int main()
     cout << "ID: 23K0703" << endl
          << endl;
 
-    Post post1("12345", "I love getting killed.");
-    Post post2("12344", "After life is a high.");
-    Post post3("12342", "I love killing people.");
+    Post *post1 = new Post("12345", "I love getting killed.");
+    Post *post2 = new Post("12344", "After life is a high.");
+    Post *post3 = new Post("12342", "I love killing people.");
 
     RegularUser user1("uwuMurderer", "12398ru23", "murder@hehe.com");
     RegularUser user2("waitingToBeMurdered", "3r4t34t43t", "murdered@haha.com");
+    BusinessUser user3("murderPromoter786", "1234", "murderIsProductive@business.com");
+
+    post1->like();
+    post1->like();
+    post1->like();
+    post1->like();
+
+    post2->like();
+    post2->like();
+    post2->like();
+
+    post3->like();
+
+    post3->comment("Great initiative");
 
     user2.addToFeed(post1);
     user2.addToFeed(post2);
+    user2.addToFeed(post3);
 
     user2.viewFeed();
     user2.viewFeed();
+
+    user3.promotePost(post1);
+    user3.promotePost(post2);
+
+    user3.viewPromotedPosts();
 }
