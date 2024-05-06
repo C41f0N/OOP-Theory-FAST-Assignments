@@ -180,4 +180,6 @@ bool operator==(Medicine &med1, Medicine &med2)
 
 int main()
 {
+    // Header
+    cout << "Name: Sarim Ahmed\nRoll Number: 23K0703\n\n";
 }
